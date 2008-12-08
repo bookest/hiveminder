@@ -1,0 +1,2 @@
+An ActiveResource wrapper around the Hiveminder[http://hiveminder.com]
+API[http://hiveminder.com/help/reference/API.html].
