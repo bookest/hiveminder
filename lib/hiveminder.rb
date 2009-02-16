@@ -1,5 +1,6 @@
 require 'activeresource'
 require 'cgi'
+require 'shellwords'
 
 module Hiveminder
   # Set the SID used to login to Hiveminder.
@@ -54,6 +55,12 @@ module Hiveminder
   end
 
   class Task < Base
+    include Shellwords
     self.collection_name = 'Task'
+
+    def tags
+      attributes['tags'] ||= nil
+      @tags ||= attributes['tags'].blank? ? [] : shellwords(attributes['tags'])
+    end
   end
 end
