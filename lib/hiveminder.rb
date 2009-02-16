@@ -56,11 +56,19 @@ module Hiveminder
 
   class Task < Base
     include Shellwords
+    attr_writer :tags
     self.collection_name = 'Task'
 
     def tags
       attributes['tags'] ||= nil
       @tags ||= attributes['tags'].blank? ? [] : shellwords(attributes['tags'])
     end
+
+    def save_with_tags
+      attributes['tags'] = tags.collect { |e| "\"#{e}\"" }.join(" ")
+      save_without_tags
+    end
+
+    alias_method_chain :save, :tags
   end
 end
