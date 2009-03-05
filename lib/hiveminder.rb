@@ -70,5 +70,17 @@ module Hiveminder
     end
 
     alias_method_chain :save, :tags
+
+    def self.braindump(text, tokens='')
+      path = "/=/action/ParseTasksMagically.#{format.extension}"
+      body = "text=#{CGI.escape(text)}&tokens=#{CGI.escape(tokens)}"
+      result = connection.send(:request, :post, path, body, headers)
+
+      body = format.decode(result.body)
+      return nil if not body['success'] == 1
+
+      records = [body['content']['created']].flatten.collect { |r| { 'value' => r } }
+      instantiate_collection(records)
+    end
   end
 end
