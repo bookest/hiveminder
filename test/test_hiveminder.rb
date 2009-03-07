@@ -44,5 +44,14 @@ class BaseTest < Test::Unit::TestCase
     assert_respond_to r, :foo
     assert_equal "bar", r.foo
   end
+
+  def test_hiveminder_cookie_is_set
+    Foo.sid = "123"
+    cookie = CGI::Cookie.parse(Foo.headers['Cookie'])
+
+    assert cookie.include?('JIFTY_SID_HIVEMINDER')
+    assert_equal 1, cookie['JIFTY_SID_HIVEMINDER'].length
+    assert_equal "123", cookie['JIFTY_SID_HIVEMINDER'].first
+  end
 end
 
