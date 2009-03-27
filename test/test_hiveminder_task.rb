@@ -16,6 +16,11 @@ class TaskTest < Test::Unit::TestCase
     task.save
     assert_equal "\"@foo\" \"baz\"", task.attributes['tags']
   end
+
+  def test_locator
+    task = Hiveminder::Task.new(:id => "12354")
+    assert_equal task.locator, "F44"
+  end
 end
 
 class BraindumpTest < Test::Unit::TestCase

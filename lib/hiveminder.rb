@@ -71,6 +71,10 @@ module Hiveminder
 
     alias_method_chain :save, :tags
 
+    def locator
+      Hiveminder::Locator.encode(id.to_i)
+    end
+
     def self.braindump(text, tokens='')
       path = "/=/action/ParseTasksMagically.#{format.extension}"
       body = "text=#{CGI.escape(text)}&tokens=#{CGI.escape(tokens)}"
