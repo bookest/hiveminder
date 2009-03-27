@@ -28,7 +28,7 @@ class BraindumpTest < Test::Unit::TestCase
   end
 
   def test_braindump_single_task
-    data = { :success => 1, :content => { :created => @task1 }, }.to_xml(:root => :data)
+    data = { :success => "1", :content => { :created => @task1 }, }.to_xml(:root => :data)
     ActiveResource::HttpMock.respond_to do |mock|
       mock.post "/=/action/ParseTasksMagically.xml", @headers, data, 200
     end
@@ -40,7 +40,7 @@ class BraindumpTest < Test::Unit::TestCase
   end
 
   def test_braindump_multiple_tasks
-    data = { :success => 1, :content => { :created => [ @task1, @task2 ] }, }.to_xml(:root => :data)
+    data = { :success => "1", :content => { :created => [ @task1, @task2 ] }, }.to_xml(:root => :data)
     ActiveResource::HttpMock.respond_to do |mock|
       mock.post "/=/action/ParseTasksMagically.xml", @headers, data, 200
     end
@@ -53,7 +53,7 @@ class BraindumpTest < Test::Unit::TestCase
   end
 
   def test_braindump_returns_nil_on_error
-    data = { :success => 0, :content => { } }.to_xml(:root => :data)
+    data = { :success => "0", :content => { } }.to_xml(:root => :data)
     ActiveResource::HttpMock.respond_to do |mock|
       mock.post "/=/action/ParseTasksMagically.xml", @headers, data, 200
     end

@@ -77,7 +77,7 @@ module Hiveminder
       result = connection.send(:request, :post, path, body, headers)
 
       body = format.decode(result.body)
-      return nil if not body['success'] == 1
+      return nil unless body['success'] == '1'
 
       records = [body['content']['created']].flatten.collect { |r| { 'value' => r } }
       instantiate_collection(records)
